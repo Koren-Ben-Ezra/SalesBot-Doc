@@ -40,3 +40,10 @@ With SalesBot all you have to do is:
 - **ngrok:** Secure tunneling service providing external accessibility to the local server.
 - **Gradio (hosted on Hugging Face):** A simple yet powerful web-based user interface offering remote server control, configuration management, and monitoring.
 - **GitHub Gist Integration:** Dynamically updates the public server endpoint for uninterrupted client-server communication.
+
+
+## App Screenshots
+![image](https://github.com/user-attachments/assets/197a9444-c89e-4439-b469-643eacfd8ebc)
+
+
+![image](https://github.com/user-attachments/assets/5467d56b-9dbc-416c-8f09-8cdcaf2c0062)
