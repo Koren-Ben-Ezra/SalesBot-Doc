@@ -38,7 +38,7 @@ With SalesBot all you have to do is:
 - **Python:** Core server and client application logic.
 - **Selenium WebDriver:** Automates interaction with WhatsApp Web for seamless message delivery.
 - **ngrok:** Secure tunneling service providing external accessibility to the local server.
-- **Gradio (hosted on Hugging Face):** A simple yet powerful web-based user interface offering remote server control, configuration management, and monitoring.
+- **Gradio (hosted on Hugging Face):** A user interface offering remote server control, configuration management, and monitoring.
 - **GitHub Gist Integration:** Dynamically updates the public server endpoint for uninterrupted client-server communication.
 
 
