@@ -43,7 +43,11 @@ With SalesBot all you have to do is:
 
 
 ## App Screenshots
-![image](https://github.com/user-attachments/assets/197a9444-c89e-4439-b469-643eacfd8ebc)
+
+![image](https://github.com/user-attachments/assets/289548da-7852-4fe5-98b3-311e7576076b)
 
 
-![image](https://github.com/user-attachments/assets/5467d56b-9dbc-416c-8f09-8cdcaf2c0062)
+![image](https://github.com/user-attachments/assets/f896d27b-a011-4cc5-b8fe-30c08320c828)
+
+
+![image](https://github.com/user-attachments/assets/3149a28e-5119-4ff7-9b5c-e6e53a806f55)
