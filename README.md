@@ -22,7 +22,7 @@ Instead of a fixed IP, SalesBot launches an **ngrok** tunnel at startup and writ
   - **URL** (optional)
   - **Priority** (higher goes first)
   - **Usage Limit** (how many times to send)
-  - **Usage** (how many time the message eas sent)
+  - **Usage** (how many time the message was sent)
 
 - **MessageStore**  
   - A priority queue (min-heap) that always serves the highest-priority, lowest-usage message next  
