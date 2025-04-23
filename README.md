@@ -18,8 +18,11 @@ Instead of a fixed IP, SalesBot launches an **ngrok** tunnel at startup and writ
 ## 3. Core Data Structures
 - **Message**  
   - **ID** (UUID)  
-  - **Text** + optional **URL**  
-  - **Priority** (higher goes first) and **Usage Limit** (how many times to send)  
+  - **Text**
+  - **URL** (optional)
+  - **Priority** (higher goes first)
+  - **Usage Limit** (how many times to send)
+  - **Usage** (how many time the message eas sent)
 
 - **MessageStore**  
   - A priority queue (min-heap) that always serves the highest-priority, lowest-usage message next  
