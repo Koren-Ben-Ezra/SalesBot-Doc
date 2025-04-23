@@ -41,3 +41,21 @@ Instead of a fixed IP, SalesBot launches an **ngrok** tunnel at startup and writ
 
 3. **Automated, Jittered Scheduling**  
    Define active days and time windows; the Scheduler spaces out the queue automatically, adding a bit of randomness so messages don’t look robotic.
+
+## 5. UI Screenshots
+
+
+### Server control panel
+![image](https://github.com/user-attachments/assets/05ab27ff-a499-4860-8a83-8bd617f190ce)
+
+### Inserting a message
+![image](https://github.com/user-attachments/assets/a2ce7654-a63b-4089-8422-92cf527da10a)
+
+### Updating a message
+![image](https://github.com/user-attachments/assets/ceb3bb66-0f48-40a4-9b5e-55b536b9c058)
+
+### Peek next message
+![image](https://github.com/user-attachments/assets/1858a520-70e8-4d5e-9016-4ddf675b3651)
+
+### Server settings panel
+![image](https://github.com/user-attachments/assets/1e5d9008-f41e-465e-9330-9cf6dc909c2d)
