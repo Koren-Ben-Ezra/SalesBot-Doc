@@ -1,55 +1,43 @@
-# SalesBot - WhatsApp Advertisement Automation
+# SalesBot Architecture Overview
 
-Note: The source code is not publicly available due to business confidentiality.
+## 1. High-Level View
+At its core, SalesBot runs a **Flask** server on a Raspberry Pi that:
+- Exposes a simple REST API for creating, updating and deleting messages  
+- Manages scheduled jobs that decide *when* to send  
+- Drives a Chrome via **Selenium** to actually *send* messages through WhatsApp Web to a dedicated group  
 
-## Overview
-
-SalesBot is a specialized HTTP server developed to automate the distribution of promotional content within WhatsApp groups, primarily designed to serve the marketing needs of small and medium-sized businesses. By streamlining and automating message management and scheduling, SalesBot significantly reduces manual effort, enhances customer engagement, and increases the consistency and effectiveness of digital marketing campaigns.
-
-## Purpose and Practical Benefits
-
-Small businesses often rely heavily on targeted messaging in local and niche WhatsApp groups to drive engagement and sales. However, manual management of these interactions can be time-consuming, prone to errors, and difficult to scale.
-
-With SalesBot all you have to do is:
-
-0. Config the server settings for your needs
-1. Insert a stack of messages with a priority & usage limit
-2. Thats it.
-
-## Architecture
-
-- **HTTP Server** – Responsible for:
-  - Maintaining the message store
-  - Automating sending of the next message
-  - Managing message scheduling and configuration
-  - Handling WhatsApp authentication and session control
-
-- **Client API** – Responsible for:
-  - Providing a simplified Python interface for developers
-  - Communicating with the HTTP server over HTTP(S)
-  - Automatically fetching the current ngrok URL from a GitHub Gist
-
-- **Client App (Gradio Frontend + Hugging Face Space)** – Responsible for:
-  - Providing a user-friendly web interface for message and server management
-  - Allowing non-technical users to view, insert, update, and delete messages
-  - Supporting WhatsApp session login via QR code
-
-## Technologies Used
-- **Python:** Core server and client application logic.
-- **Selenium WebDriver:** Automates interaction with WhatsApp Web for seamless message delivery.
-- **ngrok:** Secure tunneling service providing external accessibility to the local server.
-- **Gradio (hosted on Hugging Face):** A user interface offering remote server control, configuration management, and monitoring.
-- **GitHub Gist Integration:** Dynamically updates the public server endpoint for uninterrupted client-server communication.
-
-
-## App Screenshots
-
-![image](https://github.com/user-attachments/assets/289548da-7852-4fe5-98b3-311e7576076b)
+A thin **Python client library** wraps those HTTP calls into easy methods, and a **Gradio UI** sits on top. The UI simply calls the client, which in turn calls the server.
 
 ---
 
-![image](https://github.com/user-attachments/assets/f896d27b-a011-4cc5-b8fe-30c08320c828)
+## 2. Dynamic ngrok in a Nutshell
+Instead of a fixed IP, SalesBot launches an **ngrok** tunnel at startup and writes its public URL to a GitHub Gist. Clients read that Gist to find the current address, so the server can reboot (and get a fresh ngrok link) without any manual URL updates.
 
 ---
 
-![image](https://github.com/user-attachments/assets/3149a28e-5119-4ff7-9b5c-e6e53a806f55)
+## 3. Core Data Structures
+- **Message**  
+  - **ID** (UUID)  
+  - **Text** + optional **URL**  
+  - **Priority** (higher goes first) and **Usage Limit** (how many times to send)  
+
+- **MessageStore**  
+  - A priority queue (min-heap) that always serves the highest-priority, lowest-usage message next  
+  - Persists to `messages.json` so your queue survives restarts
+  - Backups for the message store are done in a lazy approach
+
+- **Scheduler**  
+  - Uses APScheduler to turn each queued message into a “send” job  
+  - Calculates daily time slots (with configurable hours + random jitter) and enqueues them  
+
+---
+
+## 4. Three Standout Features
+1. **Instant “Send Now”**  
+   One API call (and one button in the UI) pulls the next message from the queue and fires it off immediately—perfect for urgent alerts.
+
+2. **QR-Based Login Persistence**  
+   On first run, Selenium grabs the WhatsApp Web QR code as an image and send it to the client (displayed on the UI). The client scan it once, and the server’s Chrome profile stays logged in indefinitely.
+
+3. **Automated, Jittered Scheduling**  
+   Define active days and time windows; the Scheduler spaces out the queue automatically, adding a bit of randomness so messages don’t look robotic.
